@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>CCCC.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>LIbrosLibros.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -23,6 +28,11 @@
 			<true/>
 		</dict>
 		<key>106E6E711DE0C1FD0044600D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>106E6E871DE201D80044600D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
