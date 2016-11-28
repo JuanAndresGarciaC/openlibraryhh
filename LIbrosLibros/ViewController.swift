@@ -16,26 +16,49 @@ class ViewController: UIViewController {
         ISBN.text = ""
     }
     
-    @IBOutlet weak var Resultado: UITextView!
+    @IBOutlet weak var titulo: UILabel!
+    
+    @IBOutlet weak var autores: UILabel!
+    
+    @IBOutlet weak var portada: UILabel!
+   
     
     @IBAction func Buscar(_ sender: Any) {
     sincrono()
     }
     func sincrono() {
-        var urls = "https://openlibrary.org/api/books?jscmd=data&format=json&bibkeys=ISBN"+ISBN.text!
+        var urls = "https://openlibrary.org/api/books?jscmd=data&format=json&bibkeys=ISBN:"+ISBN.text!
         print(urls)
         print(urls)
-        Resultado.text = urls
+        
+        let url = NSURL(string: urls)
+        let datos:NSData? = NSData(contentsOf: url! as URL)
+        do {
+            var loco = ISBN.text!
+            let json = try JSONSerialization.jsonObject(with: NSData(contentsOf: url! as URL)! as Data, options: JSONSerialization.ReadingOptions.mutableLeaves)
+            let dico1 = json as! NSDictionary
+            let dico2 = dico1["ISBN:\(loco)"] as! NSDictionary
+            
+            //let dico5 = dico2 ["authors"] as! NSDictionary
+            self.titulo.text = dico2 ["title"] as! NSString as String
+            let dico3 = dico2["authors"] as! NSArray
+            print(dico3)
+            //let trt = dico2["authors"] as! NSString as String
+            
+            //print(trt)
+            self.autores.text = dico3[1] as! NSString as String
+        }
+        catch _ {
+            
+        }
+        let texto = NSString(data:datos! as Data, encoding:String.Encoding.utf8.rawValue)
+        print(texto)
+        
         if urls == "https://openlibrary.org/api/books?jscmd=data&format=json&bibkeys=ISBN:"{
             
-            Resultado.text = "Porfavor escriba el ISBN"
+            titulo.text = "Porfavor escriba el ISBN"
         }
         
-            let url = NSURL(string: urls)
-            let datos:NSData? = NSData(contentsOf: url! as URL)
-            let texto = NSString(data:datos! as Data, encoding:String.Encoding.utf8.rawValue)
-            print(texto)
-            Resultado.text = texto as String!
         
     }
     override func viewDidLoad() {
